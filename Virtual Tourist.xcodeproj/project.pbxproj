@@ -14,6 +14,15 @@
 		7D7656491CB333C000A7279B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D7656471CB333C000A7279B /* LaunchScreen.storyboard */; };
 		7D7656541CB333C000A7279B /* Virtual_TouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656531CB333C000A7279B /* Virtual_TouristTests.swift */; };
 		7D76565F1CB333C000A7279B /* Virtual_TouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76565E1CB333C000A7279B /* Virtual_TouristUITests.swift */; };
+		7D76566D1CBAEF8100A7279B /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76566C1CBAEF8100A7279B /* CoreDataStackManager.swift */; };
+		7D7656701CBAF3F000A7279B /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76566F1CBAF3F000A7279B /* Pin.swift */; };
+		7D7656731CBAF55E00A7279B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656711CBAF55E00A7279B /* Model.xcdatamodeld */; };
+		7D7656771CBC45E600A7279B /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656761CBC45E600A7279B /* FlickrClient.swift */; };
+		7D7656791CBC45F500A7279B /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656781CBC45F500A7279B /* FlickrConstants.swift */; };
+		7D76567B1CBC643400A7279B /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */; };
+		7D76567F1CBC797900A7279B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76567E1CBC797900A7279B /* Photo.swift */; };
+		7D7656811CBC7A7000A7279B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */; };
+		7D78C8801CBECBFD00CB0C34 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +56,15 @@
 		7D76565A1CB333C000A7279B /* Virtual TouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Virtual TouristUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D76565E1CB333C000A7279B /* Virtual_TouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Virtual_TouristUITests.swift; sourceTree = "<group>"; };
 		7D7656601CB333C000A7279B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D76566C1CBAEF8100A7279B /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		7D76566F1CBAF3F000A7279B /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		7D7656721CBAF55E00A7279B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		7D7656761CBC45E600A7279B /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		7D7656781CBC45F500A7279B /* FlickrConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
+		7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
+		7D76567E1CBC797900A7279B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +116,13 @@
 			isa = PBXGroup;
 			children = (
 				7D76563E1CB333C000A7279B /* AppDelegate.swift */,
+				7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */,
 				7D7656401CB333C000A7279B /* ViewController.swift */,
+				7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */,
+				7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */,
+				7D76566C1CBAEF8100A7279B /* CoreDataStackManager.swift */,
 				7D7656421CB333C000A7279B /* Main.storyboard */,
+				7D76566E1CBAF3DA00A7279B /* Model */,
 				7D7656451CB333C000A7279B /* Assets.xcassets */,
 				7D7656471CB333C000A7279B /* LaunchScreen.storyboard */,
 				7D76564A1CB333C000A7279B /* Info.plist */,
@@ -123,6 +146,34 @@
 				7D7656601CB333C000A7279B /* Info.plist */,
 			);
 			path = "Virtual TouristUITests";
+			sourceTree = "<group>";
+		};
+		7D76566E1CBAF3DA00A7279B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7D7656741CBC45AF00A7279B /* Clients */,
+				7D76566F1CBAF3F000A7279B /* Pin.swift */,
+				7D76567E1CBC797900A7279B /* Photo.swift */,
+				7D7656711CBAF55E00A7279B /* Model.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7D7656741CBC45AF00A7279B /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				7D7656751CBC45C100A7279B /* Flickr */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		7D7656751CBC45C100A7279B /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				7D7656761CBC45E600A7279B /* FlickrClient.swift */,
+				7D7656781CBC45F500A7279B /* FlickrConstants.swift */,
+			);
+			name = Flickr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +307,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D7656791CBC45F500A7279B /* FlickrConstants.swift in Sources */,
 				7D7656411CB333C000A7279B /* ViewController.swift in Sources */,
 				7D76563F1CB333C000A7279B /* AppDelegate.swift in Sources */,
+				7D76567B1CBC643400A7279B /* PhotoAlbumViewController.swift in Sources */,
+				7D78C8801CBECBFD00CB0C34 /* GCDBlackBox.swift in Sources */,
+				7D76567F1CBC797900A7279B /* Photo.swift in Sources */,
+				7D7656731CBAF55E00A7279B /* Model.xcdatamodeld in Sources */,
+				7D76566D1CBAEF8100A7279B /* CoreDataStackManager.swift in Sources */,
+				7D7656701CBAF3F000A7279B /* Pin.swift in Sources */,
+				7D7656771CBC45E600A7279B /* FlickrClient.swift in Sources */,
+				7D7656811CBC7A7000A7279B /* PhotoCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +542,7 @@
 				7D7656651CB333C000A7279B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D7656661CB333C000A7279B /* Build configuration list for PBXNativeTarget "Virtual TouristTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +551,7 @@
 				7D7656681CB333C000A7279B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D7656691CB333C000A7279B /* Build configuration list for PBXNativeTarget "Virtual TouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,8 +560,22 @@
 				7D76566B1CB333C000A7279B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7D7656711CBAF55E00A7279B /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7D7656721CBAF55E00A7279B /* Model.xcdatamodel */,
+			);
+			currentVersion = 7D7656721CBAF55E00A7279B /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D7656331CB333C000A7279B /* Project object */;
 }

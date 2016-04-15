@@ -86,26 +86,26 @@ class ViewController: UIViewController {
             
             let pin = Pin(dictionary: pinDictionary, context: sharedContext)
             
-            fc.searchFlickrPhotos(Double(coordinate.latitude), longitude: Double(coordinate.longitude), numPhotos: 12) { (urls, error) in
-                if let error = error {
-                    print("error: \(error)")
-                    // do not add pin
-                    return
-                } else {
-                    _ = urls.map() { (url: String) -> Photo in
-                        let photoDictionary: [String : AnyObject] = [
-                            Photo.Keys.FlickrURL: url,
-                            Photo.Keys.ImagePath: ""
-                        ]
-                        
-                        let photo = Photo(dictionary: photoDictionary, context: self.sharedContext)
-                        photo.pin = pin
-                        CoreDataStackManager.sharedInstance().saveContext()
-                        
-                        return photo
-                    }
-                }
-            }
+//            fc.searchFlickrPhotos(Double(coordinate.latitude), longitude: Double(coordinate.longitude), numPhotos: 12) { (urls, error) in
+//                if let error = error {
+//                    print("error: \(error)")
+//                    // do not add pin
+//                    return
+//                } else {
+//                    _ = urls.map() { (url: String) -> Photo in
+//                        let photoDictionary: [String : AnyObject] = [
+//                            Photo.Keys.FlickrURL: url,
+//                            Photo.Keys.ImagePath: ""
+//                        ]
+//                        
+//                        let photo = Photo(dictionary: photoDictionary, context: self.sharedContext)
+//                        photo.pin = pin
+//                        CoreDataStackManager.sharedInstance().saveContext()
+//                        
+//                        return photo
+//                    }
+//                }
+//            }
             
             CoreDataStackManager.sharedInstance().saveContext()
             

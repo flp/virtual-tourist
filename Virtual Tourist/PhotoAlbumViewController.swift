@@ -75,12 +75,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                     print("got photos!")
                     // Update the collection on the main thread
                     dispatch_async(dispatch_get_main_queue()) {
-                        do {
-                            try self.fetchedResultsController.performFetch()
-                        } catch let error1 as NSError {
-                            print("Error performing fetch after flickr search: \(error1)")
-                        }
-                        
                         self.collectionView.reloadData()
                     }
                 }
@@ -101,9 +95,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         layout.minimumLineSpacing = space
         layout.itemSize = CGSizeMake(dimension, dimension)
         
-        // If there are no items in the collection view, setting the collection view's layout
-        // causes a divide-by-zero error. Calling reloadData() beforehand seems to fix the issue.
-        self.collectionView.reloadData()
         self.collectionView.collectionViewLayout = layout
     }
     
@@ -217,6 +208,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             managedObjectContext: self.sharedContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
+        fetchedResultsController.delegate = self
         
         return fetchedResultsController
     }()
@@ -281,7 +273,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     // The most interesting thing about the method is the collection view's "performBatchUpdates" method.
     // Notice that all of the changes are performed inside a closure that is handed to the collection view.
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        print("in controllerDidChangeContent. changes.count: \(insertedIndexPaths.count + deletedIndexPaths.count)")
+        print("in controllerDidChangeContent. changes.count: \(insertedIndexPaths.count + deletedIndexPaths.count + updatedIndexPaths.count)")
         
         collectionView.performBatchUpdates({() -> Void in
             

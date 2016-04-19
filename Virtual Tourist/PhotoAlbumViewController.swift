@@ -115,6 +115,35 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         cell.indicator.center = cell.center
         cell.indicator.startAnimating()
         cell.layoutIfNeeded()
+        
+        if photo.imagePath != "" {
+            // Image file for this photo is already downloaded. Display it
+        } else {
+            // Image file is missing. Display a placeholder image
+            let image = UIImage(named: "placeholder")!
+            cell.backgroundView = UIImageView(image: image)
+            cell.indicator.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+            cell.indicator.center = cell.center
+            cell.indicator.startAnimating()
+            cell.layoutIfNeeded()
+            
+            // Download image data and save it
+            self.fc.downloadPhoto(photo.flickrURL) { (imageData, error) in
+                
+                if let error = error {
+                    print("error downloading image at \(photo.flickrURL): \(error)")
+                    return
+                }
+                
+                let flickrImage = UIImage(data: imageData)!
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    cell.backgroundView = UIImageView(image: flickrImage)
+                    cell.indicator.stopAnimating()
+                    cell.indicator.hidden = true
+                }
+            }
+        }
     }
     
     // MARK: UICollectionView

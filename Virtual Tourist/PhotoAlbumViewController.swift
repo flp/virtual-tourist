@@ -109,15 +109,20 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     func configureCell(cell: PhotoCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
         
-        let image = UIImage(named: "placeholder")!
-        cell.backgroundView = UIImageView(image: image)
-        cell.indicator.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-        cell.indicator.center = cell.center
-        cell.indicator.startAnimating()
-        cell.layoutIfNeeded()
-        
         if photo.imagePath != "" {
             // Image file for this photo is already downloaded. Display it
+            let fullPath = ImageStore.getDocumentsFileURL(photo.imagePath)
+            if let image = ImageStore.loadImage(fullPath.path!) {
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    cell.backgroundView = UIImageView(image: image)
+                    cell.indicator.stopAnimating()
+                    cell.indicator.hidden = true
+                }
+                
+            } else {
+                print("error loading image from \(fullPath.path)")
+            }
         } else {
             // Image file is missing. Display a placeholder image
             let image = UIImage(named: "placeholder")!
@@ -137,10 +142,22 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                 
                 let flickrImage = UIImage(data: imageData)!
                 
+                // Display image
                 dispatch_async(dispatch_get_main_queue()) {
                     cell.backgroundView = UIImageView(image: flickrImage)
                     cell.indicator.stopAnimating()
                     cell.indicator.hidden = true
+                }
+                
+                // Save image to file
+                let filename = NSUUID().UUIDString
+                let fileURL = ImageStore.getDocumentsFileURL(filename)
+                if ImageStore.saveImage(flickrImage, path: fileURL.path!) {
+                    photo.imagePath = filename
+                    // TODO: save context?
+                } else {
+                    print("failed to save image at \(photo.flickrURL) to \(fileURL)")
+                    return
                 }
             }
         }
@@ -166,60 +183,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         
         return cell
     }
-    
-//    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCollectionViewCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
-//        
-//        let photo = self.pin.photos[indexPath.row]
-//        if photo.imagePath != "" {
-//            // Image file for this photo is already downloaded. Display it
-//            let fullPath = self.getDocumentsFileURL(photo.imagePath)
-//            if let image = self.loadImage(fullPath.path!) {
-////                print("image already exists for this photo, reading from \(fullPath)")
-//                performUIUpdatesOnMain {
-//                    cell.backgroundView = UIImageView(image: image)
-//                    cell.indicator.stopAnimating()
-//                    cell.indicator.hidden = true
-//                }
-//            } else {
-//                print("no image at \(photo.imagePath)")
-//            }
-//        } else {
-//            // Image file is missing. Display a placeholder picture while the picture is downloaded
-//            let image = UIImage(named: "placeholder")!
-//            cell.backgroundView = UIImageView(image: image)
-//            cell.indicator.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-//            cell.indicator.center = cell.center
-//            cell.indicator.startAnimating()
-//            cell.layoutIfNeeded()
-//            
-//            self.fc.downloadPhoto(photo.flickrURL) { (imageData, error) in
-//                if let error = error {
-//                    print("error: \(error)")
-//                    return
-//                } else {
-//                    let flickrImage = UIImage(data: imageData)!
-//                    let filename = NSUUID().UUIDString
-//                    let fileURL = self.getDocumentsFileURL(filename)
-////                    print("saving image to \(fileURL)")
-//                    if self.saveImage(flickrImage, path: fileURL.path!) {
-//                        photo.imagePath = filename
-//                        CoreDataStackManager.sharedInstance().saveContext()
-//                    } else {
-//                        print("failure saving image")
-//                    }
-//                    
-//                    performUIUpdatesOnMain {
-//                        cell.backgroundView = UIImageView(image: flickrImage)
-//                        cell.indicator.stopAnimating()
-//                        cell.indicator.hidden = true
-//                    }
-//                }
-//            }
-//        }
-//        
-//        return cell
-//    }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // TODO
@@ -319,26 +282,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             }
             
             }, completion: nil)
-    }
-    
-    // MARK: Image loading and storing - should go someplace else probably
-    
-    func loadImage(path: String) -> UIImage? {
-        return UIImage(contentsOfFile: path)
-    }
-    
-    func saveImage(image: UIImage, path: String) -> Bool {
-        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
-        let result = jpgImageData!.writeToFile(path, atomically: true)
-        
-        return result
-    }
-    
-    func getDocumentsFileURL(filename: String) -> NSURL {
-        let documentsDirectoryURL:NSURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
-        let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(filename)
-        
-        return fullURL
     }
 
 }

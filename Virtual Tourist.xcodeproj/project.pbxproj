@@ -22,7 +22,7 @@
 		7D76567B1CBC643400A7279B /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */; };
 		7D76567F1CBC797900A7279B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D76567E1CBC797900A7279B /* Photo.swift */; };
 		7D7656811CBC7A7000A7279B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */; };
-		7D78C8801CBECBFD00CB0C34 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */; };
+		7DEE29721CC5D048004F7062 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEE29711CC5D048004F7062 /* ImageStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 		7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		7D76567E1CBC797900A7279B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		7DEE29711CC5D048004F7062 /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				7D76563E1CB333C000A7279B /* AppDelegate.swift */,
-				7D78C87F1CBECBFD00CB0C34 /* GCDBlackBox.swift */,
+				7DEE29711CC5D048004F7062 /* ImageStore.swift */,
 				7D7656401CB333C000A7279B /* ViewController.swift */,
 				7D76567A1CBC643400A7279B /* PhotoAlbumViewController.swift */,
 				7D7656801CBC7A7000A7279B /* PhotoCollectionViewCell.swift */,
@@ -307,11 +307,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DEE29721CC5D048004F7062 /* ImageStore.swift in Sources */,
 				7D7656791CBC45F500A7279B /* FlickrConstants.swift in Sources */,
 				7D7656411CB333C000A7279B /* ViewController.swift in Sources */,
 				7D76563F1CB333C000A7279B /* AppDelegate.swift in Sources */,
 				7D76567B1CBC643400A7279B /* PhotoAlbumViewController.swift in Sources */,
-				7D78C8801CBECBFD00CB0C34 /* GCDBlackBox.swift in Sources */,
 				7D76567F1CBC797900A7279B /* Photo.swift in Sources */,
 				7D7656731CBAF55E00A7279B /* Model.xcdatamodeld in Sources */,
 				7D76566D1CBAEF8100A7279B /* CoreDataStackManager.swift in Sources */,

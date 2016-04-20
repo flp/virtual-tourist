@@ -90,6 +90,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfu-97-r2P">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Kxo-kw-kGk"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0dr-NF-Q0t"/>
+                                    <barButtonItem title="New Collection" id="MHC-Y4-H3y">
+                                        <connections>
+                                            <action selector="newCollection:" destination="1nw-xT-OQI" id="CQR-uv-No1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mIm-K4-pg0"/>
+                                </items>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Kxo-kw-kGk"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Kxo-kw-kGk"/>
+                                    </mask>
+                                </variation>
+                            </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QgT-ab-DRp">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -146,33 +171,43 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="GS8-9m-tjR" firstAttribute="top" secondItem="QgT-ab-DRp" secondAttribute="bottom" id="7qQ-F7-e3f"/>
+                            <constraint firstItem="QgT-ab-DRp" firstAttribute="bottom" secondItem="Sfu-97-r2P" secondAttribute="top" id="5tA-FP-qHJ"/>
+                            <constraint firstItem="QgT-ab-DRp" firstAttribute="trailing" secondItem="Sfu-97-r2P" secondAttribute="trailing" id="8wF-4A-V0c"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="top" secondItem="iw9-V0-stC" secondAttribute="bottom" constant="45" id="CGP-LD-BHG"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="NPJ-5s-eIm" secondAttribute="leadingMargin" constant="-20" id="Gbz-K1-b6b"/>
+                            <constraint firstItem="GS8-9m-tjR" firstAttribute="top" secondItem="Sfu-97-r2P" secondAttribute="bottom" id="NbM-KX-9wX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QgT-ab-DRp" secondAttribute="trailing" constant="-20" id="QDB-mV-HMD"/>
+                            <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="Sfu-97-r2P" secondAttribute="leading" id="cZi-TV-CGm"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="Sfu-97-r2P"/>
                                 <exclude reference="QgT-ab-DRp"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="NbM-KX-9wX"/>
+                                <exclude reference="5tA-FP-qHJ"/>
+                                <exclude reference="8wF-4A-V0c"/>
                                 <exclude reference="CGP-LD-BHG"/>
                                 <exclude reference="Gbz-K1-b6b"/>
                                 <exclude reference="QDB-mV-HMD"/>
-                                <exclude reference="7qQ-F7-e3f"/>
+                                <exclude reference="cZi-TV-CGm"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
+                                <include reference="Sfu-97-r2P"/>
                                 <include reference="QgT-ab-DRp"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="NbM-KX-9wX"/>
+                                <include reference="5tA-FP-qHJ"/>
+                                <include reference="8wF-4A-V0c"/>
                                 <include reference="CGP-LD-BHG"/>
                                 <include reference="Gbz-K1-b6b"/>
                                 <include reference="QDB-mV-HMD"/>
-                                <include reference="7qQ-F7-e3f"/>
+                                <include reference="cZi-TV-CGm"/>
                             </mask>
                         </variation>
                     </view>

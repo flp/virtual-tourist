@@ -12,11 +12,4 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        
-//        print(self.center)
-//        self.indicator.center = self.center
-//    }
-    
 }

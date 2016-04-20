@@ -46,4 +46,8 @@ class Photo: NSManagedObject {
         }
     }
     
+    override func prepareForDeletion() {
+        self.image = nil
+    }
+    
 }

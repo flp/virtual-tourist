@@ -16,7 +16,10 @@ class ImageStore {
     
     func saveImage(image: UIImage?, identifier: String) {
         if image == nil {
-            // TODO delete?
+            do {
+                print("removing image file")
+                try NSFileManager.defaultManager().removeItemAtPath(getDocumentsFileURLForImageID(identifier).path!)
+            } catch {}
             return
         }
         

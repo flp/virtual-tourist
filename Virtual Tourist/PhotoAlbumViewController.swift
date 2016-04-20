@@ -53,29 +53,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.navigationController!.navigationBarHidden = false
         
         if pin.photos.isEmpty {
-            
-            fc.searchFlickrPhotos(Double(pin.coordinate.latitude), longitude: Double(pin.coordinate.longitude), numPhotos: 12) { (urls, error) in
-                if let error = error {
-                    print("error: \(error)")
-                } else {
-                    _ = urls.map() { (url: String) -> Photo in
-                        
-                        let photo = Photo(flickrURL: url, context: self.sharedContext)
-                        photo.pin = self.pin
-                        
-                        return photo
-                    }
-                    
-                    CoreDataStackManager.sharedInstance().saveContext()
-                    
-                    print("got photos!")
-                    // Update the collection on the main thread
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.collectionView.reloadData()
-                    }
-                }
-            }
-            
+            self.fetchPhotos()
         }
     }
     
@@ -92,6 +70,45 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         layout.itemSize = CGSizeMake(dimension, dimension)
         
         self.collectionView.collectionViewLayout = layout
+    }
+    
+    // MARK: IBActions
+    
+    @IBAction func newCollection(sender: AnyObject) {
+        self.deleteAllPhotos()
+        self.fetchPhotos()
+    }
+    
+    // MARK: Photos
+    
+    func deleteAllPhotos() {
+        for photo in fetchedResultsController.fetchedObjects as! [Photo] {
+            sharedContext.deleteObject(photo)
+        }
+    }
+    
+    func fetchPhotos() {
+        fc.searchFlickrPhotos(Double(pin.coordinate.latitude), longitude: Double(pin.coordinate.longitude), numPhotos: 12) { (urls, error) in
+            if let error = error {
+                print("error: \(error)")
+            } else {
+                print("fetched \(urls.count) photos")
+                _ = urls.map() { (url: String) -> Photo in
+                    
+                    let photo = Photo(flickrURL: url, context: self.sharedContext)
+                    photo.pin = self.pin
+                    
+                    return photo
+                }
+                
+                CoreDataStackManager.sharedInstance().saveContext()
+                
+                // Update the collection on the main thread
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
     // MARK: CoreData
@@ -119,6 +136,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             cell.indicator.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
             cell.indicator.center = cell.center
             cell.indicator.startAnimating()
+            cell.indicator.hidden = false
             cell.layoutIfNeeded()
             
             // Download image data and save it

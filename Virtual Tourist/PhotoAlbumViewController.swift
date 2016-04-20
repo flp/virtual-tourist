@@ -59,12 +59,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                     print("error: \(error)")
                 } else {
                     _ = urls.map() { (url: String) -> Photo in
-                        let photoDictionary: [String : AnyObject] = [
-                            Photo.Keys.FlickrURL: url,
-                            Photo.Keys.ImagePath: ""
-                        ]
                         
-                        let photo = Photo(dictionary: photoDictionary, context: self.sharedContext)
+                        let photo = Photo(flickrURL: url, context: self.sharedContext)
                         photo.pin = self.pin
                         
                         return photo
@@ -109,19 +105,12 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     func configureCell(cell: PhotoCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
         
-        if photo.imagePath != "" {
+        if photo.image != nil {
             // Image file for this photo is already downloaded. Display it
-            let fullPath = ImageStore.getDocumentsFileURL(photo.imagePath)
-            if let image = ImageStore.loadImage(fullPath.path!) {
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    cell.backgroundView = UIImageView(image: image)
-                    cell.indicator.stopAnimating()
-                    cell.indicator.hidden = true
-                }
-                
-            } else {
-                print("error loading image from \(fullPath.path)")
+            dispatch_async(dispatch_get_main_queue()) {
+                cell.backgroundView = UIImageView(image: photo.image)
+                cell.indicator.stopAnimating()
+                cell.indicator.hidden = true
             }
         } else {
             // Image file is missing. Display a placeholder image
@@ -133,6 +122,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             cell.layoutIfNeeded()
             
             // Download image data and save it
+            print("downloading image")
             self.fc.downloadPhoto(photo.flickrURL) { (imageData, error) in
                 
                 if let error = error {
@@ -150,15 +140,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                 }
                 
                 // Save image to file
-                let filename = NSUUID().UUIDString
-                let fileURL = ImageStore.getDocumentsFileURL(filename)
-                if ImageStore.saveImage(flickrImage, path: fileURL.path!) {
-                    photo.imagePath = filename
-                    // TODO: save context?
-                } else {
-                    print("failed to save image at \(photo.flickrURL) to \(fileURL)")
-                    return
-                }
+                photo.image = flickrImage
             }
         }
     }

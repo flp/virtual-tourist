@@ -10,20 +10,27 @@ import UIKit
 
 class ImageStore {
     
-    class func loadImage(path: String) -> UIImage? {
-        return UIImage(contentsOfFile: path)
+    func getImageWithID(identifier: String) -> UIImage? {
+        return UIImage(contentsOfFile: self.getDocumentsFileURLForImageID(identifier).path!)
     }
     
-    class func saveImage(image: UIImage, path: String) -> Bool {
-        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
-        let result = jpgImageData!.writeToFile(path, atomically: true)
+    func saveImage(image: UIImage?, identifier: String) {
+        if image == nil {
+            // TODO delete?
+            return
+        }
         
-        return result
+        self.storeImage(image!, url: self.getDocumentsFileURLForImageID(identifier))
     }
     
-    class func getDocumentsFileURL(filename: String) -> NSURL {
+    private func storeImage(image: UIImage, url: NSURL) -> Bool {
+        let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
+        return jpgImageData!.writeToURL(url, atomically: true)
+    }
+    
+    private func getDocumentsFileURLForImageID(identifier: String) -> NSURL {
         let documentsDirectoryURL:NSURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
-        let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(filename)
+        let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(identifier)
         
         return fullURL
     }

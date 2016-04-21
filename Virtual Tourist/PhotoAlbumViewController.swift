@@ -28,6 +28,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bottomButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     // MARK: Lifecycle methods
     
@@ -133,6 +134,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func fetchPhotos() {
+        self.statusLabel.hidden = false
+        
         fc.searchFlickrPhotos(Double(pin.coordinate.latitude), longitude: Double(pin.coordinate.longitude), numPhotos: 12) { (urls, error) in
             if let error = error {
                 print("error: \(error)")
@@ -151,6 +154,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                 // Update the collection on the main thread
                 dispatch_async(dispatch_get_main_queue()) {
                     self.collectionView.reloadData()
+                    
+                    self.statusLabel.hidden = true
                 }
             }
         }

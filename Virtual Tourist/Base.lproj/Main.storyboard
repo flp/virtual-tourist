@@ -209,10 +209,20 @@
                                     </mask>
                                 </variation>
                             </mapView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding photos..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SE8-zv-CX6">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="85" width="400" height="431"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="bottom" secondItem="Sfu-97-r2P" secondAttribute="top" id="5tA-FP-qHJ"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="trailing" secondItem="Sfu-97-r2P" secondAttribute="trailing" id="8wF-4A-V0c"/>
+                            <constraint firstItem="SE8-zv-CX6" firstAttribute="centerY" secondItem="NPJ-5s-eIm" secondAttribute="centerY" id="E7a-ir-yyy"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="NPJ-5s-eIm" secondAttribute="leadingMargin" constant="-20" id="Gbz-K1-b6b"/>
                             <constraint firstItem="GS8-9m-tjR" firstAttribute="top" secondItem="Sfu-97-r2P" secondAttribute="bottom" id="NbM-KX-9wX"/>
                             <constraint firstItem="Jn1-mi-BMH" firstAttribute="top" secondItem="iw9-V0-stC" secondAttribute="bottom" id="Ome-oE-bw0"/>
@@ -221,17 +231,21 @@
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="Sfu-97-r2P" secondAttribute="leading" id="cZi-TV-CGm"/>
                             <constraint firstItem="Jn1-mi-BMH" firstAttribute="leading" secondItem="NPJ-5s-eIm" secondAttribute="leadingMargin" constant="-20" id="dU8-32-B8g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jn1-mi-BMH" secondAttribute="trailing" constant="-20" id="mp8-Di-byR"/>
+                            <constraint firstItem="SE8-zv-CX6" firstAttribute="centerX" secondItem="NPJ-5s-eIm" secondAttribute="centerX" id="nCJ-DR-G5r"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Sfu-97-r2P"/>
                                 <exclude reference="QgT-ab-DRp"/>
                                 <exclude reference="Jn1-mi-BMH"/>
+                                <exclude reference="SE8-zv-CX6"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Ome-oE-bw0"/>
                                 <exclude reference="dU8-32-B8g"/>
                                 <exclude reference="mp8-Di-byR"/>
+                                <exclude reference="E7a-ir-yyy"/>
+                                <exclude reference="nCJ-DR-G5r"/>
                                 <exclude reference="5tA-FP-qHJ"/>
                                 <exclude reference="8wF-4A-V0c"/>
                                 <exclude reference="Gbz-K1-b6b"/>
@@ -246,11 +260,14 @@
                                 <include reference="Sfu-97-r2P"/>
                                 <include reference="QgT-ab-DRp"/>
                                 <include reference="Jn1-mi-BMH"/>
+                                <include reference="SE8-zv-CX6"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Ome-oE-bw0"/>
                                 <include reference="dU8-32-B8g"/>
                                 <include reference="mp8-Di-byR"/>
+                                <include reference="E7a-ir-yyy"/>
+                                <include reference="nCJ-DR-G5r"/>
                                 <include reference="5tA-FP-qHJ"/>
                                 <include reference="8wF-4A-V0c"/>
                                 <include reference="Gbz-K1-b6b"/>
@@ -265,6 +282,7 @@
                         <outlet property="bottomButton" destination="MHC-Y4-H3y" id="Rc6-pY-mRs"/>
                         <outlet property="collectionView" destination="QgT-ab-DRp" id="GVn-xi-GBK"/>
                         <outlet property="mapView" destination="Jn1-mi-BMH" id="6Za-Vl-aEq"/>
+                        <outlet property="statusLabel" destination="SE8-zv-CX6" id="DOI-Fg-Gmb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ouy-Fb-Bqc" userLabel="First Responder" sceneMemberID="firstResponder"/>

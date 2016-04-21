@@ -97,11 +97,7 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="0dr-NF-Q0t"/>
-                                    <barButtonItem title="New Collection" id="MHC-Y4-H3y">
-                                        <connections>
-                                            <action selector="newCollection:" destination="1nw-xT-OQI" id="CQR-uv-No1"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem title="New Collection" id="MHC-Y4-H3y"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="mIm-K4-pg0"/>
                                 </items>
                                 <variation key="default">
@@ -132,35 +128,61 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ka-0k-jjS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    </variation>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_x" translatesAutoresizingMaskIntoConstraints="NO" id="8DO-Ve-U8E">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="0.0" y="0.0" width="49" height="51"/>
+                                                    </variation>
+                                                </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fji-6s-yqg">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="fji-6s-yqg" firstAttribute="centerY" secondItem="Nl3-Lm-UiI" secondAttribute="centerY" id="58t-ht-w8x"/>
+                                            <constraint firstItem="8DO-Ve-U8E" firstAttribute="centerY" secondItem="Nl3-Lm-UiI" secondAttribute="centerY" id="U3V-tt-rM7"/>
                                             <constraint firstItem="fji-6s-yqg" firstAttribute="centerX" secondItem="Nl3-Lm-UiI" secondAttribute="centerX" id="gmu-ZU-cZf"/>
+                                            <constraint firstItem="8DO-Ve-U8E" firstAttribute="centerX" secondItem="Nl3-Lm-UiI" secondAttribute="centerX" id="j2H-Cp-xPe"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="subviews">
+                                                <exclude reference="3ka-0k-jjS"/>
+                                                <exclude reference="8DO-Ve-U8E"/>
                                                 <exclude reference="fji-6s-yqg"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <exclude reference="U3V-tt-rM7"/>
+                                                <exclude reference="j2H-Cp-xPe"/>
                                                 <exclude reference="58t-ht-w8x"/>
                                                 <exclude reference="gmu-ZU-cZf"/>
                                             </mask>
                                         </variation>
                                         <variation key="widthClass=compact">
                                             <mask key="subviews">
+                                                <include reference="3ka-0k-jjS"/>
+                                                <include reference="8DO-Ve-U8E"/>
                                                 <include reference="fji-6s-yqg"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <include reference="U3V-tt-rM7"/>
+                                                <include reference="j2H-Cp-xPe"/>
                                                 <include reference="58t-ht-w8x"/>
                                                 <include reference="gmu-ZU-cZf"/>
                                             </mask>
                                         </variation>
                                         <connections>
+                                            <outlet property="colorPanel" destination="3ka-0k-jjS" id="GM0-lQ-jNG"/>
+                                            <outlet property="deleteImageView" destination="8DO-Ve-U8E" id="3uX-rc-6HD"/>
                                             <outlet property="indicator" destination="fji-6s-yqg" id="NNz-8m-3A2"/>
                                         </connections>
                                     </collectionViewCell>
@@ -212,6 +234,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="bottomButton" destination="MHC-Y4-H3y" id="Rc6-pY-mRs"/>
                         <outlet property="collectionView" destination="QgT-ab-DRp" id="GVn-xi-GBK"/>
                     </connections>
                 </viewController>
@@ -220,4 +243,7 @@
             <point key="canvasLocation" x="417" y="113"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="red_x" width="50" height="50"/>
+    </resources>
 </document>

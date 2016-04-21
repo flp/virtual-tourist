@@ -11,12 +11,6 @@ import UIKit
 
 class Photo: NSManagedObject {
     
-    struct Keys {
-        static let FlickrURL = "flickr_url"
-        static let ImageID = "image_id"
-    }
-    
-    @NSManaged var id: NSNumber
     @NSManaged var flickrURL: String
     @NSManaged var imageID: String
     @NSManaged var pin: Pin?

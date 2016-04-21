@@ -16,8 +16,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     
     // The selected indexes array keeps all of the indexPaths for cells that are "selected". The array is
     // used inside cellForItemAtIndexPath to lower the alpha of selected cells.  You can see how the array
-    // works by searchign through the code for 'selectedIndexes'
-    var selectedIndexes = [NSIndexPath]()
+    // works by searchign through the code for 'selectedIndices'
+    var selectedIndices = [NSIndexPath]()
     
     // Keep the changes. We will keep track of insertions, deletions, and updates.
     var insertedIndexPaths: [NSIndexPath]!
@@ -25,6 +25,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     var updatedIndexPaths: [NSIndexPath]!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var bottomButton: UIBarButtonItem!
     
     // MARK: Lifecycle methods
     
@@ -44,6 +45,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.updateBottomButton()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,19 +75,55 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.collectionView.collectionViewLayout = layout
     }
     
-    // MARK: IBActions
+    // MARK: Bottom button
     
-    @IBAction func newCollection(sender: AnyObject) {
+    func updateBottomButton() {
+        if selectedIndices.count > 0 {
+            bottomButton.title = "Delete Selected Photos"
+            bottomButton.action = Selector("deleteSelectedPhotos:")
+        } else {
+            bottomButton.title = "New Collection"
+            bottomButton.action = Selector("newCollection:")
+        }
+    }
+    
+    func newCollection(sender: AnyObject) {
         self.deleteAllPhotos()
         self.fetchPhotos()
     }
     
+    func deleteSelectedPhotos(sender: AnyObject) {
+        self.deleteSelectedPhotos()
+    }
+    
     // MARK: Photos
+    
+    func deleteSelectedPhotos() {
+        var photosToDelete = [Photo]()
+        
+        for indexPath in selectedIndices {
+            photosToDelete.append(fetchedResultsController.objectAtIndexPath(indexPath) as! Photo)
+        }
+        
+        for photo in photosToDelete {
+            sharedContext.deleteObject(photo)
+        }
+        
+        CoreDataStackManager.sharedInstance().saveContext()
+        
+        selectedIndices = [NSIndexPath]()
+        
+        self.updateBottomButton()
+    }
     
     func deleteAllPhotos() {
         for photo in fetchedResultsController.fetchedObjects as! [Photo] {
             sharedContext.deleteObject(photo)
         }
+        
+        CoreDataStackManager.sharedInstance().saveContext()
+        
+        selectedIndices = [NSIndexPath]()
     }
     
     func fetchPhotos() {
@@ -119,6 +158,16 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     
     // MARK: Configure Cell
     
+    func configureCellSelection(cell: PhotoCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
+        if let _ = selectedIndices.indexOf(indexPath) {
+            cell.colorPanel.alpha = 0.6
+            cell.deleteImageView.alpha = 1.0
+        } else {
+            cell.colorPanel.alpha = 0
+            cell.deleteImageView.alpha = 0
+        }
+    }
+    
     func configureCell(cell: PhotoCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
         
@@ -133,8 +182,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             // Image file is missing. Display a placeholder image
             let image = UIImage(named: "placeholder")!
             cell.backgroundView = UIImageView(image: image)
-            cell.indicator.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-            cell.indicator.center = cell.center
             cell.indicator.startAnimating()
             cell.indicator.hidden = false
             cell.layoutIfNeeded()
@@ -180,12 +227,23 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCollectionViewCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         
         self.configureCell(cell, atIndexPath: indexPath)
+        self.configureCellSelection(cell, atIndexPath: indexPath)
         
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // TODO
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
+        
+        if let index = selectedIndices.indexOf(indexPath) {
+            selectedIndices.removeAtIndex(index)
+        } else {
+            selectedIndices.append(indexPath)
+        }
+        
+        self.configureCellSelection(cell, atIndexPath: indexPath)
+        
+        self.updateBottomButton()
     }
     
     // MARK: NSFetchedResultsController

@@ -15,7 +15,6 @@ class Pin: NSManagedObject, MKAnnotation {
     struct Keys {
         static let Latitude = "latitude"
         static let Longitude = "longitude"
-        static let Movies = "movies"
     }
     
     @NSManaged var latitude: NSNumber

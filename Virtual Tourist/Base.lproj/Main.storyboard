@@ -137,9 +137,6 @@
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_x" translatesAutoresizingMaskIntoConstraints="NO" id="8DO-Ve-U8E">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                                    <variation key="widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="0.0" width="49" height="51"/>
-                                                    </variation>
                                                 </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fji-6s-yqg">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
@@ -161,10 +158,10 @@
                                                 <exclude reference="fji-6s-yqg"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="U3V-tt-rM7"/>
-                                                <exclude reference="j2H-Cp-xPe"/>
                                                 <exclude reference="58t-ht-w8x"/>
                                                 <exclude reference="gmu-ZU-cZf"/>
+                                                <exclude reference="U3V-tt-rM7"/>
+                                                <exclude reference="j2H-Cp-xPe"/>
                                             </mask>
                                         </variation>
                                         <variation key="widthClass=compact">
@@ -174,10 +171,10 @@
                                                 <include reference="fji-6s-yqg"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="U3V-tt-rM7"/>
-                                                <include reference="j2H-Cp-xPe"/>
                                                 <include reference="58t-ht-w8x"/>
                                                 <include reference="gmu-ZU-cZf"/>
+                                                <include reference="U3V-tt-rM7"/>
+                                                <include reference="j2H-Cp-xPe"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -187,55 +184,87 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="125" width="400" height="431"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="1nw-xT-OQI" id="Frq-9u-yCf"/>
                                     <outlet property="delegate" destination="1nw-xT-OQI" id="Lor-dZ-vti"/>
                                 </connections>
                             </collectionView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Jn1-mi-BMH">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="Zpp-xX-itb"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Zpp-xX-itb"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="50" width="400" height="75"/>
+                                    <mask key="constraints">
+                                        <include reference="Zpp-xX-itb"/>
+                                    </mask>
+                                </variation>
+                            </mapView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="bottom" secondItem="Sfu-97-r2P" secondAttribute="top" id="5tA-FP-qHJ"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="trailing" secondItem="Sfu-97-r2P" secondAttribute="trailing" id="8wF-4A-V0c"/>
-                            <constraint firstItem="QgT-ab-DRp" firstAttribute="top" secondItem="iw9-V0-stC" secondAttribute="bottom" constant="45" id="CGP-LD-BHG"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="NPJ-5s-eIm" secondAttribute="leadingMargin" constant="-20" id="Gbz-K1-b6b"/>
                             <constraint firstItem="GS8-9m-tjR" firstAttribute="top" secondItem="Sfu-97-r2P" secondAttribute="bottom" id="NbM-KX-9wX"/>
+                            <constraint firstItem="Jn1-mi-BMH" firstAttribute="top" secondItem="iw9-V0-stC" secondAttribute="bottom" id="Ome-oE-bw0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QgT-ab-DRp" secondAttribute="trailing" constant="-20" id="QDB-mV-HMD"/>
+                            <constraint firstItem="QgT-ab-DRp" firstAttribute="top" secondItem="Jn1-mi-BMH" secondAttribute="bottom" id="bGa-XE-azx"/>
                             <constraint firstItem="QgT-ab-DRp" firstAttribute="leading" secondItem="Sfu-97-r2P" secondAttribute="leading" id="cZi-TV-CGm"/>
+                            <constraint firstItem="Jn1-mi-BMH" firstAttribute="leading" secondItem="NPJ-5s-eIm" secondAttribute="leadingMargin" constant="-20" id="dU8-32-B8g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jn1-mi-BMH" secondAttribute="trailing" constant="-20" id="mp8-Di-byR"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Sfu-97-r2P"/>
                                 <exclude reference="QgT-ab-DRp"/>
+                                <exclude reference="Jn1-mi-BMH"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="NbM-KX-9wX"/>
+                                <exclude reference="Ome-oE-bw0"/>
+                                <exclude reference="dU8-32-B8g"/>
+                                <exclude reference="mp8-Di-byR"/>
                                 <exclude reference="5tA-FP-qHJ"/>
                                 <exclude reference="8wF-4A-V0c"/>
-                                <exclude reference="CGP-LD-BHG"/>
                                 <exclude reference="Gbz-K1-b6b"/>
                                 <exclude reference="QDB-mV-HMD"/>
+                                <exclude reference="bGa-XE-azx"/>
                                 <exclude reference="cZi-TV-CGm"/>
+                                <exclude reference="NbM-KX-9wX"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="Sfu-97-r2P"/>
                                 <include reference="QgT-ab-DRp"/>
+                                <include reference="Jn1-mi-BMH"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="NbM-KX-9wX"/>
+                                <include reference="Ome-oE-bw0"/>
+                                <include reference="dU8-32-B8g"/>
+                                <include reference="mp8-Di-byR"/>
                                 <include reference="5tA-FP-qHJ"/>
                                 <include reference="8wF-4A-V0c"/>
-                                <include reference="CGP-LD-BHG"/>
                                 <include reference="Gbz-K1-b6b"/>
                                 <include reference="QDB-mV-HMD"/>
+                                <include reference="bGa-XE-azx"/>
                                 <include reference="cZi-TV-CGm"/>
+                                <include reference="NbM-KX-9wX"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="bottomButton" destination="MHC-Y4-H3y" id="Rc6-pY-mRs"/>
                         <outlet property="collectionView" destination="QgT-ab-DRp" id="GVn-xi-GBK"/>
+                        <outlet property="mapView" destination="Jn1-mi-BMH" id="6Za-Vl-aEq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ouy-Fb-Bqc" userLabel="First Responder" sceneMemberID="firstResponder"/>

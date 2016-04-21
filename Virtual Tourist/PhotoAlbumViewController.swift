@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import MapKit
 import UIKit
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate {
@@ -26,6 +27,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bottomButton: UIBarButtonItem!
+    @IBOutlet weak var mapView: MKMapView!
     
     // MARK: Lifecycle methods
     
@@ -58,6 +60,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         if pin.photos.isEmpty {
             self.fetchPhotos()
         }
+        
+        self.mapView.addAnnotation(pin)
+        let region = MKCoordinateRegion(center: pin.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0))
+        self.mapView.setRegion(region, animated: true)
     }
     
     override func viewDidLayoutSubviews() {

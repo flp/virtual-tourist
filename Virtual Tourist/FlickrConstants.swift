@@ -19,6 +19,8 @@ extension FlickrClient {
         static let SearchBBoxHalfHeight = 1.0
         static let SearchLatRange = (-90.0, 90.0)
         static let SearchLonRange = (-180.0, 180.0)
+        
+        static let MaxPhotos = 200 // must be <= 500 per flickr's API
     }
     
     // MARK: Parameter Keys
@@ -34,6 +36,7 @@ extension FlickrClient {
         static let BoundingBox = "bbox"
         static let Page = "page"
         static let PerPage = "per_page"
+        static let Sort = "sort"
     }
     
     // MARK: Parameter Values
@@ -43,6 +46,7 @@ extension FlickrClient {
         static let DisableJSONCallback = "1" /* 1 means "yes" */
         static let MediumURL = "url_m"
         static let UseSafeSearch = "1"
+        static let Interestingness = "interestingness-desc"
     }
     
     // MARK: Response Keys

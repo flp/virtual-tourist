@@ -19,7 +19,7 @@ class FlickrClient: NSObject {
             completionHandlerForURLs(urls: nil, error: NSError(domain: "searchFlickrPhotos", code: 1, userInfo: userInfo))
         }
         
-        if numPhotos > 500 {
+        if numPhotos > Constants.MaxPhotos {
             sendError("Maximum number of photos exceed.")
             return NSURLSessionDataTask()
         }
@@ -33,7 +33,8 @@ class FlickrClient: NSObject {
             ParameterKeys.Extras: ParameterValues.MediumURL,
             ParameterKeys.Format: ParameterValues.ResponseFormat,
             ParameterKeys.NoJSONCallback: ParameterValues.DisableJSONCallback,
-            ParameterKeys.PerPage: String(numPhotos)
+            ParameterKeys.PerPage: String(Constants.MaxPhotos),
+            ParameterKeys.Sort: ParameterValues.Interestingness
         ]
         
         /* 2/3. Build the URL, Configure the request */
@@ -81,16 +82,30 @@ class FlickrClient: NSObject {
                 return
             }
             
-            /* GUARD: Is "pages" key in the photosDictionary? */
-            guard let totalPages = photosDictionary[ResponseKeys.Pages] as? Int else {
-                sendError("Cannot find key '\(ResponseKeys.Pages)' in \(photosDictionary)")
+            /* GUARD: Is the "photo" key in photosDictionary? */
+            guard var photosArray = photosDictionary[ResponseKeys.Photo] as? [[String: AnyObject]] else {
+                sendError("Cannot find key '\(ResponseKeys.Photo)' in \(photosDictionary)")
                 return
             }
             
-            // Pick a random page
-            let pageLimit = min(totalPages, 40)
-            let randomPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
-            self.getFlickrPhotos(methodParameters, pageNumber: randomPage, completionHandlerForURLs: completionHandlerForURLs)
+            var urls = [String]()
+            
+            if photosArray.isEmpty {
+                completionHandlerForURLs(urls: urls, error: nil)
+                return
+            }
+            
+            // Collect image urls
+            // pick numPhotos randomly from photosArray
+            for _ in 1...numPhotos {
+                let randIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
+                let randPhoto = photosArray.removeAtIndex(randIndex)
+                if let imageUrlString = randPhoto[ResponseKeys.MediumURL] as? String {
+                    urls.append(imageUrlString)
+                }
+            }
+            
+            completionHandlerForURLs(urls: urls, error: nil)
         }
         
         /* 7. Start the request */
@@ -136,87 +151,6 @@ class FlickrClient: NSObject {
         
         task.resume()
 
-        return task
-    }
-    
-    private func getFlickrPhotos(var methodParameters: [String: AnyObject], pageNumber: Int, completionHandlerForURLs: (urls: [String]!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
-        // add the page to the method's parameters
-        methodParameters[ParameterKeys.Page] = String(pageNumber)
-        
-        // create session and request
-        let session = NSURLSession.sharedSession()
-        let request = NSURLRequest(URL: flickrURLFromParameters(methodParameters))
-        
-        // create network request
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            
-            func sendError(error: String) {
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForURLs(urls: nil, error: NSError(domain: "getFlickrPhotos", code: 1, userInfo: userInfo))
-            }
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                sendError("There was an error with your request: \(error)")
-                return
-            }
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
-            }
-            
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                sendError("No data was returned by the request!")
-                return
-            }
-            
-            // parse the data
-            let parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-            } catch {
-                sendError("Could not parse the data as JSON: '\(data)'")
-                return
-            }
-            
-            /* GUARD: Did Flickr return an error (stat != ok)? */
-            guard let stat = parsedResult[ResponseKeys.Status] as? String where stat == ResponseValues.OKStatus else {
-                sendError("Flickr API returned an error. See error code and message in \(parsedResult)")
-                return
-            }
-            
-            /* GUARD: Is the "photos" key in our result? */
-            guard let photosDictionary = parsedResult[ResponseKeys.Photos] as? [String:AnyObject] else {
-                sendError("Cannot find key '\(ResponseKeys.Photos)' in \(parsedResult)")
-                return
-            }
-            
-            /* GUARD: Is the "photo" key in photosDictionary? */
-            guard let photosArray = photosDictionary[ResponseKeys.Photo] as? [[String: AnyObject]] else {
-                sendError("Cannot find key '\(ResponseKeys.Photo)' in \(photosDictionary)")
-                return
-            }
-            
-            var urls = [String]()
-            
-            // Collect image urls
-            for photo in photosArray {
-                if let imageUrlString = photo[ResponseKeys.MediumURL] as? String {
-                    urls.append(imageUrlString)
-                }
-            }
-            
-            completionHandlerForURLs(urls: urls, error: nil)
-            
-        }
-        
-        // start the task!
-        task.resume()
-        
         return task
     }
     

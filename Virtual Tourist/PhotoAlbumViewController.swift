@@ -59,6 +59,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         self.navigationController!.navigationBarHidden = false
         
         if pin.photos.isEmpty {
+            self.bottomButton.enabled = false
             self.fetchPhotos()
         }
         
@@ -95,6 +96,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func newCollection(sender: AnyObject) {
+        self.bottomButton.enabled = false
         self.deleteAllPhotos()
         self.fetchPhotos()
     }
@@ -156,6 +158,10 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
                     self.collectionView.reloadData()
                     
                     self.statusLabel.hidden = true
+                    
+                    if !self.bottomButton.enabled {
+                        self.bottomButton.enabled = true
+                    }
                 }
             }
         }
@@ -198,7 +204,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             cell.layoutIfNeeded()
             
             // Download image data and save it
-            print("downloading image")
             self.fc.downloadPhoto(photo.flickrURL) { (imageData, error) in
                 
                 if let error = error {
@@ -256,6 +261,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         
         self.updateBottomButton()
     }
+    
     
     // MARK: NSFetchedResultsController
     

@@ -90,14 +90,9 @@ class FlickrClient: NSObject {
             
             var urls = [String]()
             
-            if photosArray.isEmpty {
-                completionHandlerForURLs(urls: urls, error: nil)
-                return
-            }
-            
             // Collect image urls
             // pick numPhotos randomly from photosArray
-            for _ in 1...numPhotos {
+            for n in 1...numPhotos where photosArray.count >= n {
                 let randIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
                 let randPhoto = photosArray.removeAtIndex(randIndex)
                 if let imageUrlString = randPhoto[ResponseKeys.MediumURL] as? String {
@@ -115,7 +110,7 @@ class FlickrClient: NSObject {
         
     }
     
-    func downloadPhoto(var imageURL: String, completionHandlerForImageData: (data: NSData!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func downloadPhoto(imageURL: String, completionHandlerForImageData: (data: NSData!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let session = NSURLSession.sharedSession()
         

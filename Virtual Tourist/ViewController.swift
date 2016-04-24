@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         self.mapView.delegate = self
         
         // Configure gesture recognizer
-        let uilgr = UILongPressGestureRecognizer(target: self, action: "addAnnotation:")
+        let uilgr = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(_:)))
         self.mapView.addGestureRecognizer(uilgr)
         
         // Add existing Pins from CoreData

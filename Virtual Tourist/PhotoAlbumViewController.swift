@@ -191,6 +191,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         if photo.image != nil {
             // Image file for this photo is already downloaded. Display it
             dispatch_async(dispatch_get_main_queue()) {
+                cell.indicator.hidden = true
                 cell.backgroundView = UIImageView(image: photo.image)
             }
         } else {

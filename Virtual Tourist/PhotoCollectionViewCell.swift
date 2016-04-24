@@ -18,6 +18,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
     
         colorPanel.frame = self.bounds
+        indicator.hidden = true
     }
     
 }

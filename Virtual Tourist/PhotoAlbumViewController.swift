@@ -192,8 +192,6 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
             // Image file for this photo is already downloaded. Display it
             dispatch_async(dispatch_get_main_queue()) {
                 cell.backgroundView = UIImageView(image: photo.image)
-                cell.indicator.stopAnimating()
-                cell.indicator.hidden = true
             }
         } else {
             // Image file is missing. Display a placeholder image

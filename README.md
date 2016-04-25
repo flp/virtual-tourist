@@ -1,7 +1,7 @@
-# virtual-tourist
+# Virtual Tourist
 Virtual Tourist is an iOS app that lets you explore the world from the comfort of your couch.
 
-Virtual Tourist is a portfolio project from the Udacity "iOS Persistence and Core Data" course.
+This app is a portfolio project from Udacity's "iOS Persistence and Core Data" course.
 
 Simply drop a pin by tapping and holding at a location of interest.
 
@@ -11,6 +11,6 @@ Tapping a pin downloads interesting Flickr photos that are associated with the l
 
 ![alt tag](Screenshots/progress.png)
 
-Specific photos can be deleted by selecting them, or you can grab a new collection altogether.
+Specific photos can be selected for deletion one at a time, or you can grab a new collection altogether.
 
 ![alt tag](Screenshots/delete.png)

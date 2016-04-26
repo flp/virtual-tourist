@@ -14,3 +14,5 @@ Tapping a pin downloads interesting Flickr photos that are associated with the l
 Specific photos can be selected for deletion one at a time, or you can grab a new collection altogether.
 
 ![alt tag](Screenshots/delete.png)
+
+Data is persisted with CoreData. When the app is terminated and reopened, previously entered pins will be redrawn on the map. Image files for the photos are stored in the Documents directory so that image data is only ever downloaded once and instead accessed from the filesystem on subsequent views.
